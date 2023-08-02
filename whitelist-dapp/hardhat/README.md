@@ -11,3 +11,5 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
+
+//Whitelist contract address - "0xE1b17CCae1cD60A7D9a94Ea75144d3874D053704"

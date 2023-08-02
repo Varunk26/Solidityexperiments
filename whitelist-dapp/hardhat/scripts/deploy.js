@@ -6,23 +6,33 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
+async function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+ /*
+    DeployContract in ethers.js is an abstraction used to deploy new smart contracts,
+    so whitelistContract here is a factory for instances of our Whitelist contract.
+    */
+  // here we deploy the contract
+  const whitelistContract = await hre.ethers.deployContract("Whitelist", [10]);
+  // 10 is the max number of whitelisted addresses allowed
 
-  const lockedAmount = hre.ethers.parseEther("0.001");
+  // wait for the contract to deploy
+  await whitelistContract.waitForDeployment();
 
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
+  // print the address of the deployed contract
+  console.log("Whitelist Contract Address:", whitelistContract.target);
+
+  //sleep for 30 seconds while Etherscan indexes the new contract deployment
+  await sleep(30 * 1000);
+
+  // Verify the contract on etherscan
+  await hre.run("verify:verify", {
+    address: whitelistContract.target,
+    constructorArguments: [10],
   });
-
-  await lock.waitForDeployment();
-
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
 }
 
 // We recommend this pattern to be able to use async/await everywhere
