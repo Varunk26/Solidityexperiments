@@ -7,7 +7,7 @@ const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.19",
+  solidity: "0.8.18",
   networks: {
     goerli: {
       url: RPC_URL,
@@ -16,5 +16,5 @@ module.exports = {
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
-  }
+  },
 };
