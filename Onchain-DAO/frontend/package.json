@@ -1,0 +1,19 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^1.0.11",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "viem": "^1.14.0",
+    "wagmi": "^1.4.2"
+  }
+}
